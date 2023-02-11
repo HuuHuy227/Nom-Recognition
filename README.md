@@ -1,4 +1,4 @@
-# Nom-Recognition
+# Nom Recognition And Translation
 Recognize Chu Nom sequence and translate to mordern Vietnamese
 
 * Recognition model: CRNNxCTC loss
