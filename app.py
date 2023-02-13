@@ -50,20 +50,6 @@ def load_model():
 
     return crnn, transformer, converter, translation
 
-def autoplay_audio(file_path: str):
-    with open(file_path, "rb") as f:
-        data = f.read()
-        b64 = base64.b64encode(data).decode()
-        md = f"""
-            <iframe allow="autoplay">
-                <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-            </iframe>
-            """
-        st.markdown(
-            md,
-            unsafe_allow_html=True,
-        )
-
 def get_prediction(model,converter,image):
     process = Process()
 
@@ -116,10 +102,8 @@ def main():
             
     with tab2:
         st.header(":blue[Translate from Nom to Vietnamese]")
-        st.text("Translate Chu Nom to modern Vietnamese.")
-        text_input = st.text_input(
-            "Enter your translate text here 👇",
-        )
+        st.text("Translate Chu Nom sequence to modern Vietnamese.")
+        text_input = st.text_input( "Enter your sequence text here 👇",)
         btn = st.button('Translate')
 
         if btn or text_input:
@@ -131,7 +115,20 @@ def main():
             slot.text('Done')
             st.success(output)
 
-    autoplay_audio("./assets/dangdangcungmix.mp3")
+        st.markdown("""---""")
+
+        st.text("Translate Chu Nom poem.")
+        poem = st.text_area("Enter your poem here 👇", height = 200)
+        btn_poem = st.button('Translate Poem')
+
+        if btn_poem or poem:
+            sentence = poem.splitlines()
+            slot = st.empty()
+            slot.text('Running inference....')
+            trans_sentence = [translation.translate(transformer, sent) for sent in sentence]
+            slot.text('Done')
+            for res in trans_sentence:
+                st.success(res)
 
 if __name__ == '__main__':
     main()
