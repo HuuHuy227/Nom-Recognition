@@ -5,7 +5,7 @@ Recognize Chu Nom sequence and translate to mordern Vietnamese
 
 * Translate model: Transformer architecture
 
-- Model Framework: Pytorch
+- Implement Framework: Pytorch
 
 - UI Framework: Streamlit
 
